@@ -60,12 +60,19 @@
                 <p>Previous Spin : {{previous_buttonpress}}</p>
 
                 <input type ="submit" name="button" value="Save Session" class="btn btn-primary">
+                <input type ="submit" name="button" value="Undo" class="btn btn-warning">
 
                 {% block content %}
                     {% if  save_session%}
                         <p>session is saved</p>
                     {% endif %}
+                    {% if  undo_wrong%}
+                        <p>Deleted previous spin {{deleted_spin}}</p>
+                        <p>Current last spin {{current_last_spin}}</p>
+                    {% endif %}
                 {% endblock content %}
+
+
 
 
             </div>

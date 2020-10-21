@@ -19,6 +19,7 @@ def index():
              '31','32','33','34','35','36',' 0 ']
 
     save_session=False
+    undo_wrong=False
 
     if request.method=='GET':
         return render_template("roulette.html")
@@ -31,6 +32,14 @@ def index():
             os.chdir(root_directory)
             session_spins.to_csv('session'+str(len(os.listdir(root_directory))+1)+'.csv')
             return render_template("roulette.html",save_session=save_session)
+
+        if request.form['button']=='Undo':
+            undo_wrong=True
+            
+            deleted_spin=session_spins.iloc[-1].spin_landing
+            session_spins=session_spins[:-1]
+            current_last_spin=session_spins.iloc[-1].spin_landing
+            return render_template("roulette.html",undo_wrong=undo_wrong,current_last_spin=current_last_spin,deleted_spin=deleted_spin)
 
         if request.form['button'] in buttons:
             previous_buttonpress=request.form['button']
