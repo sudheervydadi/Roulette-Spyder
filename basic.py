@@ -27,7 +27,7 @@ def index():
         if request.form['button']=='Save Session':
             global session_spins
             save_session=True
-            root_directory="C:/Users/sudhe/Desktop/GitHub Repository/Roulette/Session Saves/"
+            root_directory="C:/Users/sudhe/Desktop/GitHub Repository/Roulette-Spyder/Session Saves/"
             os.chdir(root_directory)
             session_spins.to_csv('session'+str(len(os.listdir(root_directory))+1)+'.csv')
             return render_template("roulette.html",save_session=save_session)
