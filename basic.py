@@ -35,7 +35,6 @@ def index():
 
         if request.form['button']=='Undo':
             undo_wrong=True
-            
             deleted_spin=session_spins.iloc[-1].spin_landing
             session_spins=session_spins[:-1]
             current_last_spin=session_spins.iloc[-1].spin_landing
@@ -44,6 +43,12 @@ def index():
         if request.form['button'] in buttons:
             previous_buttonpress=request.form['button']
             spin_value_saver(previous_buttonpress)
+
+            if len(session_spins)>=10:
+                display_list=bid_helper()
+
+                return render_template("roulette.html",previous_buttonpress=previous_buttonpress,display_list=display_list)
+
             return render_template("roulette.html",previous_buttonpress=previous_buttonpress)
 
 
@@ -59,6 +64,10 @@ def spin_value_saver(previous_buttonpress):
                                                'session_spin_count':session_spin_count},ignore_index=True)
 
     #print(session_spins.iloc[-1])
+
+def bid_helper():
+    #Here we have to do analysis and send back results to display
+    return list([10,2,5,0,4,7,5])
 
 
 if __name__=="__main__":
